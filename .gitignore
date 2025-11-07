@@ -1,0 +1,6 @@
+# Environnement virtuel
+.venv/
+env/
+
+# CSV
+.csv/
