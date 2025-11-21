@@ -9,11 +9,9 @@ class InputData(BaseModel):
     Longitude: float
     YearBuilt: int
     NumberofFloors: int
-    PropertyGFAParking: int
     PropertyGFABuilding_s: int
     pct_electricity: float
     pct_steam: float
-    has_parking: bool
 
 # Charger le modèle
 model_ref = bentoml.sklearn.get("best_rf_model:latest")
@@ -45,11 +43,9 @@ class EnergyAPI:
                 "Longitude": -122.3,
                 "YearBuilt": 2000,
                 "NumberofFloors": 5,
-                "PropertyGFAParking": 1000,
                 "PropertyGFABuilding_s": 10000,
                 "pct_electricity": 0.7,
-                "pct_steam": 0.3,
-                "has_parking": True
+                "pct_steam": 0.3
             }
         }
     
@@ -62,7 +58,6 @@ class EnergyAPI:
             for b_type in KNOWN_BUILDING_TYPES:
                 df[f'PrimaryPropertyType_{b_type}'] = (df['PrimaryPropertyType'] == b_type).astype(int)
             df = df.drop(columns=['PrimaryPropertyType'])
-            df['has_parking'] = df['has_parking'].astype(int)
             
             result = model.predict(df)
             return {"prediction": float(result[0])}
@@ -89,11 +84,9 @@ class EnergyAPI:
     "Longitude": -122.3,
     "YearBuilt": 2000,
     "NumberofFloors": 5,
-    "PropertyGFAParking": 1000,
     "PropertyGFABuilding_s": 10000,
     "pct_electricity": 0.7,
-    "pct_steam": 0.3,
-    "has_parking": true
+    "pct_steam": 0.3
   }
 }
 """
