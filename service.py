@@ -14,7 +14,7 @@ class InputData(BaseModel):
     pct_steam: float
 
 # Charger le modèle
-model_ref = bentoml.sklearn.get("best_rf_model:latest")
+best_rf_runner = bentoml.sklearn.get("best_rf_model:latest").to_runner()
 
 # types de bâtiments vus à l'entraînement
 KNOWN_BUILDING_TYPES = [
