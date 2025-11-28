@@ -1,27 +1,73 @@
 import bentoml
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError, model_validator
+from typing import Literal
 import pandas as pd
 import numpy as np
-
-# Définir le schéma d'entrée
-class InputData(BaseModel):
-    PrimaryPropertyType: str = Field(description="Type de propriété primaire")
-    Latitude: float = Field(ge=47.0, le=48.0, description="Latitude du bâtiment (entre 47.0 et 48.0)") 
-    Longitude: float = Field(ge=-123.0, le=-122.0, description="Longitude du bâtiment (entre -123.0 et -122.0)")
-    YearBuilt: int = Field(ge=1800, le=2016, description="Année de construction (doit être réaliste)")
-    NumberofFloors: int = Field(gt=0, le=100, description="Nombre d'étages (doit être > 0 et <= 100)")
-    PropertyGFABuilding_s: int = Field(gt=0, description="Surface du bâtiment en pieds carrés (doit être > 0)")
-    pct_electricity: float = Field(ge=0.0, le=1.0, description="Pourcentage d'électricité de la conso. totale [0, 1]")
-    pct_steam: float = Field(ge=0.0, le=1.0, description="Pourcentage de vapeur de la conso. totale [0, 1]")
-
-# Charger le modèle
-model_ref = bentoml.sklearn.get("best_model:latest")
 
 # types de bâtiments vus à l'entraînement
 KNOWN_BUILDING_TYPES = [
     "Healthcare", "Hospitality", "Office", "Other", 
     "Retail", "Warehouse", "Worship Facility"
 ]
+
+
+# Définir le schéma d'entrée
+class InputData(BaseModel):
+    PrimaryPropertyType: Literal[
+        "Healthcare", "Hospitality", "Office", "Other",
+        "Retail", "Warehouse", "Worship Facility"
+    ] = Field(
+        default="Office",
+        description="Type de propriété primaire",
+        example="Office"
+    )
+    
+    Latitude: float = Field(
+        default=47.6, ge=47.0, le=48.0,
+        description="Latitude du bâtiment",
+        example=47.6
+    )
+    Longitude: float = Field(
+        default=-122.3, ge=-123.0, le=-122.0,
+        description="Longitude du bâtiment",
+        example=-122.3
+    )
+    YearBuilt: int = Field(
+        default=2000, ge=1800, le=2016,
+        description="Année de construction",
+        example=2000
+    )
+    NumberofFloors: int = Field(
+        default=5, gt=0, le=100,
+        description="Nombre d'étages",
+        example=5
+    )
+    PropertyGFABuilding_s: int = Field(
+        default=10000, gt=0,
+        description="Surface du bâtiment",
+        example=10000
+    )
+    pct_electricity: float = Field(
+        default=0.7, ge=0.0, le=1.0,
+        description="Pourcentage d'électricité",
+        example=0.7
+    )
+    pct_steam: float = Field(
+        default=0.3, ge=0.0, le=1.0,
+        description="Pourcentage de vapeur",
+        example=0.3
+    )
+
+    @model_validator(mode='before')
+    def check_pct_sum(cls, values):
+        elec = values.get('pct_electricity', 0)
+        steam = values.get('pct_steam', 0)
+        if elec + steam > 1:
+            raise ValueError("La somme de pct_electricity et pct_steam doit être <= 1")
+        return values
+
+# Charger le modèle
+model_ref = bentoml.sklearn.get("best_model:latest")
 
 @bentoml.service()
 class EnergyAPI_test:
