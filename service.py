@@ -1,20 +1,21 @@
 import bentoml
 from pydantic import BaseModel, Field
 import pandas as pd
+import numpy as np
 
 # Définir le schéma d'entrée
 class InputData(BaseModel):
     PrimaryPropertyType: str = Field(description="Type de propriété primaire")
     Latitude: float = Field(ge=47.0, le=48.0, description="Latitude du bâtiment (entre 47.0 et 48.0)") 
     Longitude: float = Field(ge=-123.0, le=-122.0, description="Longitude du bâtiment (entre -123.0 et -122.0)")
-    YearBuilt: int = Field(ge=1800, le=2025, description="Année de construction (doit être réaliste)")
+    YearBuilt: int = Field(ge=1800, le=2016, description="Année de construction (doit être réaliste)")
     NumberofFloors: int = Field(gt=0, le=100, description="Nombre d'étages (doit être > 0 et <= 100)")
     PropertyGFABuilding_s: int = Field(gt=0, description="Surface du bâtiment en pieds carrés (doit être > 0)")
     pct_electricity: float = Field(ge=0.0, le=1.0, description="Pourcentage d'électricité de la conso. totale [0, 1]")
     pct_steam: float = Field(ge=0.0, le=1.0, description="Pourcentage de vapeur de la conso. totale [0, 1]")
 
 # Charger le modèle
-model_ref = bentoml.sklearn.get("best_rf_model:latest")
+model_ref = bentoml.sklearn.get("best_model:latest")
 
 # types de bâtiments vus à l'entraînement
 KNOWN_BUILDING_TYPES = [
@@ -59,13 +60,14 @@ class EnergyAPI_test:
                 df[f'PrimaryPropertyType_{b_type}'] = (df['PrimaryPropertyType'] == b_type).astype(int)
             df = df.drop(columns=['PrimaryPropertyType'])
             
-            result = model.predict(df)
-            return {"prediction": float(result[0])}
+            result_log = model.predict(df)
+            result_real = np.expm1(result_log[0])
+            return {"prediction_kBtu": float(result_real)}
         
         except Exception as e:
             return {"error": str(e), "type": str(type(e))}
 
-# Pour le lancer : bentoml serve service:EnergyAPI --reload
+# Pour le lancer : bentoml serve service:EnergyAPI_test --reload
 
 # Pour tester :
 # documentation Swagger** dans le navigateur  : http://localhost:3000
