@@ -167,6 +167,21 @@ yarl = ">=1.17.0,<2.0"
 speedups = ["Brotli ; platform_python_implementation == \"CPython\"", "aiodns (>=3.3.0)", "backports.zstd ; platform_python_implementation == \"CPython\" and python_version < \"3.14\"", "brotlicffi ; platform_python_implementation != \"CPython\""]
 
 [[package]]
+name = "aiohttp-asgi-connector"
+version = "1.1.2"
+description = "AIOHTTP Connector for running ASGI applications"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "aiohttp_asgi_connector-1.1.2-py3-none-any.whl", hash = "sha256:9f0d76a2b0c131d790a0c7f56baf939d10daf4c1a0fa8d6bd4974d3da57745aa"},
+    {file = "aiohttp_asgi_connector-1.1.2.tar.gz", hash = "sha256:6e89b1c0b422787b6021e28de5d381a702435b0a56a2828d0c39e4f73c114f78"},
+]
+
+[package.dependencies]
+aiohttp = {version = ">=3.1.0", markers = "python_version >= \"3.9\""}
+
+[[package]]
 name = "aiosignal"
 version = "1.4.0"
 description = "aiosignal: a list of registered asynchronous callbacks"
@@ -416,19 +431,20 @@ lxml = ["lxml"]
 
 [[package]]
 name = "bentoml"
-version = "1.4.29"
+version = "1.4.30"
 description = "BentoML: The easiest way to serve AI apps and models"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "bentoml-1.4.29-py3-none-any.whl", hash = "sha256:73ff591b3f55ac48f6ceeadcf088f67db349d29d39f6ac3d88ed96684cf969bd"},
-    {file = "bentoml-1.4.29.tar.gz", hash = "sha256:c972d3562a69de6f9d8872fdfcd8b9c42509be9e74eefd84a1dbced89ef55e53"},
+    {file = "bentoml-1.4.30-py3-none-any.whl", hash = "sha256:3e24fca340d6f3d49231048d2a2417b2e8226a95553944820bffa0636eb0d295"},
+    {file = "bentoml-1.4.30.tar.gz", hash = "sha256:59b9e9805d3a9a16dd5be5c250449ee9ebef8767a03f0d2811a9af11203641cc"},
 ]
 
 [package.dependencies]
 a2wsgi = ">=1.10.7"
 aiohttp = "*"
+aiohttp-asgi-connector = ">=1.1.2"
 aiosqlite = ">=0.20.0"
 attrs = ">=22.2.0"
 cattrs = ">=22.1.0,<23.2.0"
@@ -2814,14 +2830,14 @@ markers = {main = "implementation_name == \"pypy\"", dev = "implementation_name 
 
 [[package]]
 name = "pydantic"
-version = "2.12.4"
+version = "2.12.5"
 description = "Data validation using Python type hints"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pydantic-2.12.4-py3-none-any.whl", hash = "sha256:92d3d202a745d46f9be6df459ac5a064fdaa3c1c4cd8adcfa332ccf3c05f871e"},
-    {file = "pydantic-2.12.4.tar.gz", hash = "sha256:0f8cb9555000a4b5b617f66bfd2566264c4984b27589d3b845685983e8ea85ac"},
+    {file = "pydantic-2.12.5-py3-none-any.whl", hash = "sha256:e561593fccf61e8a20fc46dfc2dfe075b8be7d0188df33f221ad1f0139180f9d"},
+    {file = "pydantic-2.12.5.tar.gz", hash = "sha256:4d351024c75c0f085a9febbb665ce8c0c6ec5d30e903bdb6394b7ede26aebb49"},
 ]
 
 [package.dependencies]
@@ -3364,14 +3380,14 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "rich-toolkit"
-version = "0.16.0"
+version = "0.17.0"
 description = "Rich toolkit for building command-line applications"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "rich_toolkit-0.16.0-py3-none-any.whl", hash = "sha256:3f4307f678c5c1e22c36d89ac05f1cd145ed7174f19c1ce5a4d3664ba77c0f9e"},
-    {file = "rich_toolkit-0.16.0.tar.gz", hash = "sha256:2f554b00b194776639f4d80f2706980756b659ceed9f345ebbd9de77d1bdd0f4"},
+    {file = "rich_toolkit-0.17.0-py3-none-any.whl", hash = "sha256:06fb47a5c5259d6b480287cd38aff5f551b6e1a307f90ed592453dd360e4e71e"},
+    {file = "rich_toolkit-0.17.0.tar.gz", hash = "sha256:17ca7a32e613001aa0945ddea27a246f6de01dfc4c12403254c057a8ee542977"},
 ]
 
 [package.dependencies]

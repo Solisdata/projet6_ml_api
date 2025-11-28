@@ -1,13 +1,12 @@
-# bentofile.yaml pour Projet6Service
-
-service: "service:EnergyAPI"
+# bentofile.yaml
+service: "service:EnergyAPI_test"
 
 labels:
   owner: mathi
   project: projet6
 
 models:
-  - "best_rf_model"
+  - "best_model"
 
 include:
   - "*.py"
@@ -36,3 +35,5 @@ python:
 
 docker:
   python_version: "3.13.5"
+
+description: "API de prédiction" 
