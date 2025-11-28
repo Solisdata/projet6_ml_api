@@ -1,20 +1,20 @@
 import bentoml
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import pandas as pd
 
 # Définir le schéma d'entrée
 class InputData(BaseModel):
-    PrimaryPropertyType: str
-    Latitude: float
-    Longitude: float
-    YearBuilt: int
-    NumberofFloors: int
-    PropertyGFABuilding_s: int
-    pct_electricity: float
-    pct_steam: float
+    PrimaryPropertyType: str = Field(description="Type de propriété primaire")
+    Latitude: float = Field(ge=47.0, le=48.0, description="Latitude du bâtiment (entre 47.0 et 48.0)") 
+    Longitude: float = Field(ge=-123.0, le=-122.0, description="Longitude du bâtiment (entre -123.0 et -122.0)")
+    YearBuilt: int = Field(ge=1800, le=2025, description="Année de construction (doit être réaliste)")
+    NumberofFloors: int = Field(gt=0, le=100, description="Nombre d'étages (doit être > 0 et <= 100)")
+    PropertyGFABuilding_s: int = Field(gt=0, description="Surface du bâtiment en pieds carrés (doit être > 0)")
+    pct_electricity: float = Field(ge=0.0, le=1.0, description="Pourcentage d'électricité de la conso. totale [0, 1]")
+    pct_steam: float = Field(ge=0.0, le=1.0, description="Pourcentage de vapeur de la conso. totale [0, 1]")
 
 # Charger le modèle
-best_rf_runner = bentoml.sklearn.get("best_rf_model:latest").to_runner()
+model_ref = bentoml.sklearn.get("best_rf_model:latest")
 
 # types de bâtiments vus à l'entraînement
 KNOWN_BUILDING_TYPES = [
@@ -23,7 +23,7 @@ KNOWN_BUILDING_TYPES = [
 ]
 
 @bentoml.service()
-class EnergyAPI:
+class EnergyAPI_test:
     
     @bentoml.api
     def home(self) -> dict:
