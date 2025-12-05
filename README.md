@@ -39,8 +39,8 @@
         ├── bentofile.yaml                             # Configuration BentoML pour le déploiement
         ├── pyproject.toml                             # Gestion des dépendances (Poetry)
         └── poetry.lock                                # Versions figées des dépendances
+```
 
-    
     ##  Machine Learning
     
     - **Modèle utilisé** : Gradient Boosting (scikit-learn)
@@ -94,6 +94,7 @@
     
     1. Tag et push de l’image Docker
     2. Déploiement sur Cloud Run pour rendre l’API publique.
+
 
 
 
