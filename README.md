@@ -3,7 +3,7 @@
     # Projet 6 – API Prédiction Consommation Énergétique
 
 
-    ## 1 Objectif
+    ## 1. Objectif
     
     Prédire la consommation énergétique d’un bâtiment à partir de ses caractéristiques (type, localisation, année de construction, surface, nombre d’étages…).
     
@@ -11,7 +11,7 @@
 
 
 
-    ## 2 Technologies utilisées
+    ## 2. Technologies utilisées
     Python   
     Docker  
     BentoML
@@ -20,7 +20,7 @@
     Cloud Run (GCP)
 
 
-    ## 3 Contenu du projet
+    ## 3. Contenu du projet
   ```
    project/
     ├── docs/
@@ -45,7 +45,7 @@
      ```
 
 
-    ## 4 Machine Learning
+    ## 4. Machine Learning
     
     - **Modèle utilisé** : Gradient Boosting (scikit-learn)
     - **Données** : caractéristiques des bâtiments + consommation énergétique
@@ -64,7 +64,7 @@
     ```
 
 
-    ## 5 Création de l’API et déploiement sur le CLOUD
+    ## 5. Création de l’API et déploiement sur le CLOUD
     
     - Création de l’API avec le fichier **service.py**
     - Création d’une image docker
@@ -95,10 +95,11 @@
             ```
             
     
-    ## 6 Déploiement Cloud (GCR)
+    ## 6. Déploiement Cloud (GCR)
     
     1. Tag et push de l’image Docker
     2. Déploiement sur Cloud Run pour rendre l’API publique.
+
 
 
 
