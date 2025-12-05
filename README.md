@@ -18,7 +18,7 @@
     Cloud Run (GCP)
     
     ## Contenu du projet
- ```
+  ```
    project/
     ├── docs/
     │   └── OCR_projet6_mathilde_lesolliec_présentation.pdf   # Présentation du projet
@@ -39,7 +39,7 @@
         ├── bentofile.yaml                             # Configuration BentoML pour le déploiement
         ├── pyproject.toml                             # Gestion des dépendances (Poetry)
         └── poetry.lock                                # Versions figées des dépendances
-```
+     ```
 
     ##  Machine Learning
     
@@ -94,6 +94,7 @@
     
     1. Tag et push de l’image Docker
     2. Déploiement sur Cloud Run pour rendre l’API publique.
+
 
 
 
