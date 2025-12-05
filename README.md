@@ -1,12 +1,14 @@
 - Readme
     
     # Projet 6 – API Prédiction Consommation Énergétique
-    
+
+
     ##  Objectif
     
     Prédire la consommation énergétique d’un bâtiment à partir de ses caractéristiques (type, localisation, année de construction, surface, nombre d’étages…).
     
     Créer un API sur le cloud (AWS) permettant d’intérroger le modèle de prédiction.
+
 
 
     ## Technologies utilisées
@@ -16,7 +18,8 @@
     Poetry
     Artifact Registry (GCP)
     Cloud Run (GCP)
-    
+
+
     ## Contenu du projet
   ```
    project/
@@ -41,6 +44,7 @@
         └── poetry.lock                                # Versions figées des dépendances
      ```
 
+
     ##  Machine Learning
     
     - **Modèle utilisé** : Gradient Boosting (scikit-learn)
@@ -58,7 +62,8 @@
     bentoml.sklearn.save_model("bes_model", best_gb)
     
     ```
-    
+
+
     ##  Création de l’API et déploiement sur le CLOUD
     
     - Création de l’API avec le fichier **service.py**
@@ -94,6 +99,7 @@
     
     1. Tag et push de l’image Docker
     2. Déploiement sur Cloud Run pour rendre l’API publique.
+
 
 
 
